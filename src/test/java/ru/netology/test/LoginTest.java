@@ -1,7 +1,9 @@
 package ru.netology.test;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
 import ru.netology.data.SQLHelper;
@@ -13,6 +15,11 @@ public class LoginTest {
     LoginPage loginPage;
     VerificationPage verificationPage;
     DashboardPage dashboardPage;
+
+    @BeforeEach
+    public void setup(){
+        Configuration.headless = true;
+    }
 
     @AfterAll
     static void down() {
