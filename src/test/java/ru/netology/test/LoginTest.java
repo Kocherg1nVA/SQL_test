@@ -16,10 +16,10 @@ public class LoginTest {
     VerificationPage verificationPage;
     DashboardPage dashboardPage;
 
-    @BeforeEach
-    public void setup(){
-        Configuration.headless = true;
-    }
+//    @BeforeEach
+//    public void setup(){
+//        Configuration.headless = true;
+//    }
 
     @AfterAll
     static void down() {
