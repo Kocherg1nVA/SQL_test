@@ -1,6 +1,7 @@
 package ru.netology.test;
 
 import com.codeborne.selenide.Selenide;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
 import ru.netology.data.SQLHelper;
@@ -13,11 +14,15 @@ public class LoginTest {
     VerificationPage verificationPage;
     DashboardPage dashboardPage;
 
+    @AfterAll
+    static void down() {
+        SQLHelper.cleanDataBase();
+    }
+
     @Test
-    public void shouldLogin(){
+    public void shouldSuccessLogin() {
         loginPage = Selenide.open("http://localhost:9999", LoginPage.class);
-        var authInfo = DataHelper.getAuhInfo();
-        SQLHelper.updateUsers(authInfo.getId(), authInfo.getLogin(), authInfo.getPassword());
+        var authInfo = DataHelper.getAuthInfoForTestData();
         verificationPage = loginPage.validLogin(authInfo);
         dashboardPage = verificationPage.validVerify(authInfo);
     }

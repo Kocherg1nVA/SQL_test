@@ -28,11 +28,20 @@ public class SQLHelper {
     }
 
     @SneakyThrows
-    public static String getVerificationCode(String login){
+    public static String getVerificationCode(String login) {
         var verificationCodeSQL = "SELECT auth_codes.code, users.login FROM auth_codes, users " +
                 "WHERE auth_codes.user_id = users.id AND users.login = ? ORDER BY created DESC";
         try (var conn = getConnection()) {
             return runner.query(conn, verificationCodeSQL, new ScalarHandler<>(), login);
         }
+    }
+
+    @SneakyThrows
+    public static void cleanDataBase() {
+        var conn = getConnection();
+        runner.execute(conn, "DELETE FROM auth_codes");
+        runner.execute(conn, "DELETE FROM card_transactions");
+        runner.execute(conn, "DELETE FROM cards");
+        runner.execute(conn, "DELETE FROM users");
     }
 }
